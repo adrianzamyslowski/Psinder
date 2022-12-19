@@ -46,34 +46,6 @@ namespace Psinder.Repository
                 .HasOne(dom => dom.Meeting)
                 .WithMany(m => m.DogOnMeetings)
                 .OnDelete(DeleteBehavior.ClientNoAction);
-
-            //modelBuilder.Entity<Park>().HasData(
-            //    new Park { City = "Kraków", Country = "Polska", Id = 1, NamePark = "Ruczaj park", PostalCode = "00-000", Street = "Krakowska" },
-            //    new Park { City = "Kraków", Country = "Polska", Id = 2, NamePark = "Park2", PostalCode = "00-000", Street = "Balicka" }
-            //);
-
-            //modelBuilder.Entity<User>().HasData(
-            //    new User
-            //    {
-            //        Id = 1,
-            //        UserName = "Kowalski",
-            //        DateOfBirth = new DateTime(2000, 01, 01),
-            //     });
-
-
-
-
-            //modelBuilder.Entity<Dog>().HasData(
-            //    new Dog { DateOfBirth = new DateTime(2020, 10, 10), DogBreeds = DogBreeds.Owczarek, Gender = Gender.Male, Id = 1, Name = "rex", });
-
-
-
-
-
-
-
-
-
         }
     }
 }
