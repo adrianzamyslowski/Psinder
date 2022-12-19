@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
+using Psinder.Core.Model.Enums;
 
 namespace Psinder.Repository
 {
@@ -18,6 +20,8 @@ namespace Psinder.Repository
         public DbSet<User> Users => Set<User>();
         public DbSet<Dog> Dogs => Set<Dog>();
         public DbSet<Park> Parks => Set<Park>();
+        public DbSet<DogOnMeeting> DogOnMeeting => Set<DogOnMeeting>();
+        public DbSet<Meeting> Meetings => Set<Meeting>();
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -33,6 +37,20 @@ namespace Psinder.Repository
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<DogOnMeeting>()
+                .HasOne(dom => dom.Dog)
+                .WithMany(d => d.DogOnMeetings)
+                .OnDelete(DeleteBehavior.ClientNoAction);
+
+            modelBuilder.Entity<DogOnMeeting>()
+                .HasOne(dom => dom.Meeting)
+                .WithMany(m => m.DogOnMeetings)
+                .OnDelete(DeleteBehavior.ClientNoAction);
+
+            //modelBuilder.Entity<Park>().HasData(
+            //    new Park { City = "Kraków", Country = "Polska", Id = 1, NamePark = "Ruczaj park", PostalCode = "00-000", Street = "Krakowska" },
+            //    new Park { City = "Kraków", Country = "Polska", Id = 2, NamePark = "Park2", PostalCode = "00-000", Street = "Balicka" }
+            //);
 
             //modelBuilder.Entity<User>().HasData(
             //    new User
@@ -40,24 +58,20 @@ namespace Psinder.Repository
             //        Id = 1,
             //        UserName = "Kowalski",
             //        DateOfBirth = new DateTime(2000, 01, 01),
-            //        Dogs = new List<Dog>()
-            //        {
-            //            new Dog
-            //            {
-            //                Id = 1, Name = "rex", DateOfBirth = new DateTime(2020, 10, 10),
-            //                DogBreeds = DogBreeds.Owczarek, Gender = Gender.Male
-            //            },
-            //            new Dog
-            //            {
-            //            Id = 2, Name = "azor", DateOfBirth = new DateTime(2021, 10, 10),
-            //            DogBreeds = DogBreeds.Mops, Gender = Gender.Female
-            //        }
-            //        },
-            //    });
+            //     });
+
+
+
 
             //modelBuilder.Entity<Dog>().HasData(
+            //    new Dog { DateOfBirth = new DateTime(2020, 10, 10), DogBreeds = DogBreeds.Owczarek, Gender = Gender.Male, Id = 1, Name = "rex", });
 
-            //    new Dog() { DateOfBirth = new DateTime(2020, 10, 10), DogBreeds = DogBreeds.Owczarek, Gender = Gender.Male, Id = 1, Name = "rex", });
+
+
+
+
+
+
 
 
         }

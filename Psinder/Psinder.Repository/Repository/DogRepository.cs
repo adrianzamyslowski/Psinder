@@ -8,19 +8,20 @@ using Psinder.Core.Model;
 
 namespace Psinder.Repository.Repository
 {
-    public class DogRepository :IDogRepository
+    public class DogRepository: IDogRepository
     {
         private readonly PsinderContext _psinderContext;
 
         public DogRepository(PsinderContext psinderContext)
         {
-            this._psinderContext = psinderContext;
+            _psinderContext = psinderContext;
         }
+        
         public Task<List<Dog>> GetAll()
         {
             throw new NotImplementedException();
-
-           }
+            
+        }
 
         public Task Add(Dog dog)
         {

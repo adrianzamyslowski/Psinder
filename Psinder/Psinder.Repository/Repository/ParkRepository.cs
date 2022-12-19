@@ -8,15 +8,16 @@ using Psinder.Core.Model;
 
 namespace Psinder.Repository.Repository
 {
-    public class ParkRepository :IParkRepository
+    public class ParkRepository:IParkRepository
     {
-
         private readonly PsinderContext _psinderContext;
 
         public ParkRepository(PsinderContext psinderContext)
         {
-            this._psinderContext = psinderContext;
+            _psinderContext = psinderContext;
         }
+
+
         public Task<List<Park>> GetAll()
         {
             throw new NotImplementedException();

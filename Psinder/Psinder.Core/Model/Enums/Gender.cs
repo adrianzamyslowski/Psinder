@@ -8,7 +8,8 @@ namespace Psinder.Core.Model.Enums
 {
     public enum Gender
     {
-        Male = 0,
-        Female,
+
+        Male = 1,
+        Female = 2,
     }
 }
