@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Psinder.Core.Interfaces;
 using Psinder.Repository;
+using Psinder.Repository.Repository;
 using Psinder.Web.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +18,13 @@ builder.Services.AddDefaultIdentity<IdentityUser>(
         )
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<PsinderContext>();
+
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddTransient<IDogRepository, DogRepository>();
+builder.Services.AddTransient<IParkRepository, ParkRepository>();
+builder.Services.AddTransient<IUserRepositor, UserRepository>();
+
 
 var app = builder.Build();
 
