@@ -11,6 +11,7 @@ namespace Psinder.Core.Interfaces
     {
         Task<List<User>> GetAll();
         Task<List<User>> GetUserByName(string userName);
+        Task<User> Get(string Id);
         Task Add(User user);
         Task Update(User user);
         Task Delete(User user);

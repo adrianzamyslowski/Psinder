@@ -32,8 +32,16 @@ namespace Psinder.Repository.Repository
             return await _psinderContext.Users
                 .Where(u => u.UserName.ToLower().Contains(userName.ToLower()))
                 .Include(u=>u.Dogs)
-                .Include(u=>u.Meetings)
+               
                 .ToListAsync();
+        }
+
+        public async Task<User?> Get(string id)
+        {
+            return await _psinderContext.Users
+                .Include(u=>u.Dogs)
+                .Include(u=>u.Meetings)
+                .SingleOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task Add(User user)
