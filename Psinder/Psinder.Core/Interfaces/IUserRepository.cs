@@ -9,12 +9,10 @@ namespace Psinder.Core.Interfaces
 {
     public interface IUserRepositor
     {
-
         Task<List<User>> GetAll();
+        Task<List<User>> GetUserByName(string userName);
         Task Add(User user);
-        Task<User> Get(int id);
         Task Update(User user);
         Task Delete(User user);
-
     }
 }

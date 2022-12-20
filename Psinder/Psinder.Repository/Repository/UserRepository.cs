@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using Psinder.Core.Interfaces;
 using Psinder.Core.Model;
 
 namespace Psinder.Repository.Repository
 {
-    public class UserRepository: IUserRepositor
+    public class UserRepository : IUserRepositor
     {
         private readonly PsinderContext _psinderContext;
 
@@ -18,29 +19,39 @@ namespace Psinder.Repository.Repository
             _psinderContext = psinderContext;
         }
 
-        public Task<List<User>> GetAll()
+        public async Task<List<User>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _psinderContext.Users
+                .Include(u => u.Dogs)
+                .Include(u => u.Meetings)
+                .ToListAsync();
         }
 
-        public Task Add(User user)
+        public async Task<List<User>> GetUserByName(string userName)
         {
-            throw new NotImplementedException();
+            return await _psinderContext.Users
+                .Where(u => u.UserName.ToLower().Contains(userName.ToLower()))
+                .Include(u=>u.Dogs)
+                .Include(u=>u.Meetings)
+                .ToListAsync();
         }
 
-        public Task<User> Get(int id)
+        public async Task Add(User user)
         {
-            throw new NotImplementedException();
+            await _psinderContext.Users.AddAsync(user);
+            await _psinderContext.SaveChangesAsync();
         }
 
-        public Task Update(User user)
+        public async Task Update(User user)
         {
-            throw new NotImplementedException();
+            _psinderContext.Users.Update(user);
+            await _psinderContext.SaveChangesAsync();
         }
 
-        public Task Delete(User user)
+        public async Task Delete(User user)
         {
-            throw new NotImplementedException();
+            _psinderContext.Users.Remove(user);
+            await _psinderContext.SaveChangesAsync();
         }
     }
 }
