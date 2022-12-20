@@ -10,8 +10,8 @@ namespace Psinder.Core.Interfaces
     public interface IDogRepository
     {
         Task<List<Dog>> GetAll();
-        Task Add(Dog dog);
-        Task<Dog> Get(int id);
+        Task<List<Dog>> GetDogByNme(string dogName);
+        Task Add(User user, Dog dog);
         Task Update(Dog dog);
         Task Delete(Dog dog);
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Psinder.Core.Interfaces;
 using Psinder.Core.Model;
 
@@ -16,31 +17,38 @@ namespace Psinder.Repository.Repository
         {
             _psinderContext = psinderContext;
         }
-        
-        public Task<List<Dog>> GetAll()
+
+
+        public async Task<List<Dog>> GetAll()
         {
-            throw new NotImplementedException();
-            
+            return await _psinderContext.Dogs
+                .ToListAsync();
         }
 
-        public Task Add(Dog dog)
+        public async Task<List<Dog>> GetDogByNme(string dogName)
         {
-            throw new NotImplementedException();
+            return await _psinderContext.Dogs
+                .Where(d => d.Name.ToLower().Contains(dogName.ToLower()))
+                .ToListAsync();
         }
 
-        public Task<Dog> Get(int id)
+        public async Task Add(User user, Dog dog)
         {
-            throw new NotImplementedException();
+            user.Dogs.Add(dog);
+            await _psinderContext.SaveChangesAsync();
         }
 
-        public Task Update(Dog dog)
+        public async Task Update(Dog dog)
         {
-            throw new NotImplementedException();
+            _psinderContext.Dogs.Update(dog);
+            await _psinderContext.SaveChangesAsync();
         }
 
-        public Task Delete(Dog dog)
+        public async Task Delete(Dog dog)
         {
-            throw new NotImplementedException();
+            _psinderContext.Dogs.Remove(dog);
+            await _psinderContext.SaveChangesAsync();
         }
     }
+    
 }
