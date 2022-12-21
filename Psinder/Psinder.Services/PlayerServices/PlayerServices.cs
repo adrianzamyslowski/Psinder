@@ -44,20 +44,20 @@ namespace Psinder.Services.PlayerServices
             userToUpade.DateOfBirth = user.DateOfBirth;
         }
 
-        public Task ChangePassword(ClaimsPrincipal user, string currentPassword, string newPassword)
+        public async Task ChangePassword(ClaimsPrincipal user, string currentPassword, string newPassword)
         {
-            throw new NotImplementedException();
+            var userToUpdate = await Get(user);
+            await _userManager.ChangePasswordAsync(userToUpdate, currentPassword, newPassword);
         }
 
-        public Task<User> Get(string id)
+        public async Task<User> Get(string id)
         {
-            var result = _userRepositor.Get(id);
-            return result;
+            return await _userRepositor.Get(id);
         }
 
-        public Task<User> Get(ClaimsPrincipal user)
+        public async Task<User> Get(ClaimsPrincipal user)
         {
-            throw new NotImplementedException();
+            return await _userRepositor.Get(user.FindFirst(ClaimTypes.NameIdentifier).Value);
         }
     }
 }
