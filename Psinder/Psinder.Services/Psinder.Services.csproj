@@ -11,4 +11,9 @@
     <ProjectReference Include="..\Psinder.Repository\Psinder.Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="MeetingServices\" />
+    <Folder Include="ParkServices\" />
+  </ItemGroup>
+
 </Project>

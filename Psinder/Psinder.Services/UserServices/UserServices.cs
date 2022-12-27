@@ -10,14 +10,14 @@ using Psinder.Core.Interfaces;
 using Psinder.Core.Model;
 using Psinder.Core.Model.Enums;
 
-namespace Psinder.Services.PlayerServices
+namespace Psinder.Services.UserServices
 {
-    public class PlayerServices : IPlayerServices
+    public class UserServices : IUserServices
     {
         private readonly IUserRepositor _userRepositor;
         private readonly UserManager<User> _userManager;
 
-        public PlayerServices(IUserRepositor userRepositor, UserManager<User> userManager)
+        public UserServices(IUserRepositor userRepositor, UserManager<User> userManager)
         {
             _userRepositor = userRepositor;
             _userManager = userManager;

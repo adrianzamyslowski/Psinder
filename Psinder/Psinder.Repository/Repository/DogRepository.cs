@@ -25,6 +25,10 @@ namespace Psinder.Repository.Repository
                 .ToListAsync();
         }
 
+       public async Task<Dog> GetById(int id)
+        {
+            return await _psinderContext.Dogs.SingleOrDefaultAsync(n => n.Id == id);
+        }
         public async Task<List<Dog>> GetDogByNme(string dogName)
         {
             return await _psinderContext.Dogs
