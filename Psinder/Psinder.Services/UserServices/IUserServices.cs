@@ -10,11 +10,11 @@ namespace Psinder.Services.UserServices
 {
     public interface IUserServices
     {
-        Task Create(User newUser, string password);
-        Task Delete(ClaimsPrincipal user);
-        Task Update(User user);
-        Task ChangePassword(ClaimsPrincipal user, string currentPassword, string newPassword);
-        Task<User> Get(string id);
-        Task<User> Get(ClaimsPrincipal user);
+        Task CreateAsync(User newUser, string password);
+        Task DeleteAsync(ClaimsPrincipal user);
+        Task UpdateAsync(User user);
+        Task ChangePasswordAsync(ClaimsPrincipal user, string currentPassword, string newPassword);
+        Task<User> GetAsync(string id);
+        Task<User> GetAsync(ClaimsPrincipal user);
     }
 }

@@ -23,36 +23,36 @@ namespace Psinder.Services.DogServices
             _dogRepository = dogRepository;
         }
 
-        public async Task Add(ClaimsPrincipal user, Dog dog)
+        public async Task AddAsync(ClaimsPrincipal user, Dog dog)
         {
-            var userToAddDog = await _userServices.Get(user);
+            var userToAddDog = await _userServices.GetAsync(user);
             await _dogRepository.Add(userToAddDog, dog);
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            await _dogRepository.Delete(await Get(id));
+            await _dogRepository.Delete(await GetAsync(id));
         }
 
-        public async Task<Dog> Get(int id)
+        public async Task<Dog> GetAsync(int id)
         {
             return await _dogRepository.GetById(id);
         }
 
-        public async Task<List<Dog>> Get(string name)
+        public async Task<List<Dog>> GetAsync(string name)
         {
             return await _dogRepository.GetDogByNme(name);
         }
 
-        public async Task<List<Dog>> GetAllUserDogs(ClaimsPrincipal user)
+        public async Task<List<Dog>> GetAllUserDogsAsync(ClaimsPrincipal user)
         {
-            var userToListDog = await _userServices.Get(user);
+            var userToListDog = await _userServices.GetAsync(user);
             return userToListDog.Dogs;
         }
 
-        public async Task Update(int id, Dog dog)
+        public async Task UpdateAsync(int id, Dog dog)
         {
-            var dogToUpdate = await Get(id);
+            var dogToUpdate = await GetAsync(id);
             dogToUpdate.Name = dog.Name;
             dogToUpdate.DateOfBirth = dog.DateOfBirth;
             //zmiana na wyciągniętą rasę z bazy(uniąć błędów z referencjami)

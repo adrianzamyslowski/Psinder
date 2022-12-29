@@ -11,11 +11,11 @@ namespace Psinder.Services.DogServices
 {
     public interface IDogServices
     {
-        Task Add(ClaimsPrincipal user, Dog dog);
-        Task Delete(int id);
-        Task Update(int id, Dog dog);
-        Task<Dog> Get(int id);
-        Task<List<Dog>> Get(string name);
-        Task<List<Dog>> GetAllUserDogs(ClaimsPrincipal user);
+        Task AddAsync(ClaimsPrincipal user, Dog dog);
+        Task DeleteAsync(int id);
+        Task UpdateAsync(int id, Dog dog);
+        Task<Dog> GetAsync(int id);
+        Task<List<Dog>> GetAsync(string name);
+        Task<List<Dog>> GetAllUserDogsAsync(ClaimsPrincipal user);
     }
 }

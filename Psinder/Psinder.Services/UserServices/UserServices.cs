@@ -24,38 +24,38 @@ namespace Psinder.Services.UserServices
         }
 
 
-        public async Task Create(User newUser, string password)
+        public async Task CreateAsync(User newUser, string password)
         {
             var result = await _userManager.CreateAsync(newUser, password);
             result = await _userManager.AddToRoleAsync(newUser, UserRoles.RegularUser.ToString());
         }
 
-        public async Task Delete(ClaimsPrincipal user)
+        public async Task DeleteAsync(ClaimsPrincipal user)
         {
-            var result = await Get(user);
+            var result = await GetAsync(user);
 
             await _userRepositor.Delete(result);
         }
 
-        public async Task Update(User user)
+        public async Task UpdateAsync(User user)
         {
-            var userToUpade = await Get(user.Id);
+            var userToUpade = await GetAsync(user.Id);
             userToUpade.Email = user.Email;
             userToUpade.DateOfBirth = user.DateOfBirth;
         }
 
-        public async Task ChangePassword(ClaimsPrincipal user, string currentPassword, string newPassword)
+        public async Task ChangePasswordAsync(ClaimsPrincipal user, string currentPassword, string newPassword)
         {
-            var userToUpdate = await Get(user);
+            var userToUpdate = await GetAsync(user);
             await _userManager.ChangePasswordAsync(userToUpdate, currentPassword, newPassword);
         }
 
-        public async Task<User> Get(string id)
+        public async Task<User> GetAsync(string id)
         {
             return await _userRepositor.Get(id);
         }
 
-        public async Task<User> Get(ClaimsPrincipal user)
+        public async Task<User> GetAsync(ClaimsPrincipal user)
         {
             return await _userRepositor.Get(user.FindFirst(ClaimTypes.NameIdentifier).Value);
         }
