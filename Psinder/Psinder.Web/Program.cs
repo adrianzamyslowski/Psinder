@@ -24,7 +24,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IDogRepository, DogRepository>();
 builder.Services.AddTransient<IParkRepository, ParkRepository>();
 builder.Services.AddTransient<IUserRepositor, UserRepository>();
-
+builder.Services.AddTransient<IMeetingRepository, MeetingRepository>();
 
 var app = builder.Build();
 
