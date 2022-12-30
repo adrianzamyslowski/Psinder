@@ -10,6 +10,7 @@ namespace Psinder.Core.Interfaces
     public interface IParkRepository
     {
         Task<List<Park>> GetAll();
+        Task<Park> GetById(int id);
         Task<List<Park>> GetParkByName(string parkName);
         Task Add(Park park);
         Task Update(Park park);

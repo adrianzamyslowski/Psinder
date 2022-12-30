@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="MeetingServices\" />
-    <Folder Include="ParkServices\" />
   </ItemGroup>
 
 </Project>

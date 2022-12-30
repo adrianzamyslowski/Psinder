@@ -25,6 +25,11 @@ namespace Psinder.Repository.Repository
                 .ToListAsync();
         }
 
+        public async Task<Park> GetById(int id)
+        {
+           return await _psinderContext.Parks.SingleOrDefaultAsync(p => p.Id == id);
+        }          
+
         public async Task<List<Park>> GetParkByName(string parkName)
         {
             return await _psinderContext.Parks
