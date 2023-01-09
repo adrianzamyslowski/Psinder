@@ -26,6 +26,9 @@ builder.Services.AddTransient<IParkRepository, ParkRepository>();
 builder.Services.AddTransient<IUserRepositor, UserRepository>();
 builder.Services.AddTransient<IMeetingRepository, MeetingRepository>();
 
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
