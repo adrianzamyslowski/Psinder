@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Identity.Client;
 using Psinder.Core.Interfaces;
 using Psinder.Core.Model;
 using Psinder.Core.Model.Enums;
+using Psinder.Core.Result;
 
 namespace Psinder.Services.UserServices
 {
@@ -24,10 +27,30 @@ namespace Psinder.Services.UserServices
         }
 
 
-        public async Task CreateAsync(User newUser, string password)
+        public async Task<Result> CreateAsync(User newUser, string password)
         {
-            var result = await _userManager.CreateAsync(newUser, password);
-            result = await _userManager.AddToRoleAsync(newUser, UserRoles.RegularUser.ToString());
+            var result = new Result();
+
+            result.IsSucceed= true;
+            result.StatusCode = HttpStatusCode.OK;
+
+            var identityResult = await _userManager.CreateAsync(newUser, password);
+            if (!identityResult.Succeeded)
+            {
+                result.IsSucceed = false;
+                result.Messages.Add(new ErrorMessage("", "Nie udało się utworzyć użytkownia"));
+                result.StatusCode = HttpStatusCode.InternalServerError;
+            }
+            identityResult = await _userManager.AddToRoleAsync(newUser, UserRoles.RegularUser.ToString());
+
+            if (identityResult.Succeeded)
+            {
+                result.IsSucceed = false;
+                result.Messages.Add(new ErrorMessage("", "Nie udało się nadać roli"));
+                result.StatusCode = HttpStatusCode.InternalServerError;
+            }
+
+            return result;
         }
 
         public async Task DeleteAsync(ClaimsPrincipal user)
