@@ -21,7 +21,14 @@ namespace Psinder.Core.Model
         public string UserId { get; set; }
         public User User { get; set; }
 
-        public List<DogOnMeeting> DogOnMeetings { get; set; } = new();  
+        public List<DogOnMeeting> DogOnMeetings { get; set; } = new();
+
+        public List<UserOnMeeting> UsersOnMeeting { get; set; }
+
+
+
+
+
 
     }
 }

@@ -102,10 +102,12 @@ namespace Psinder.Repository.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -142,10 +144,12 @@ namespace Psinder.Repository.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -216,6 +220,10 @@ namespace Psinder.Repository.Migrations
 
                     b.Property<int>("DogId")
                         .HasColumnType("int");
+
+                    b.Property<string>("DogOwnerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("MeetingId")
                         .HasColumnType("int");
@@ -360,6 +368,36 @@ namespace Psinder.Repository.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Psinder.Core.Model.UserOnMeeting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MeetingId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MeetingId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserOnMeetings");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -468,6 +506,25 @@ namespace Psinder.Repository.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Psinder.Core.Model.UserOnMeeting", b =>
+                {
+                    b.HasOne("Psinder.Core.Model.Meeting", "Meeting")
+                        .WithMany("UsersOnMeeting")
+                        .HasForeignKey("MeetingId")
+                        .OnDelete(DeleteBehavior.ClientNoAction)
+                        .IsRequired();
+
+                    b.HasOne("Psinder.Core.Model.User", "User")
+                        .WithMany("UsersOnMeeting")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.ClientNoAction)
+                        .IsRequired();
+
+                    b.Navigation("Meeting");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Psinder.Core.Model.Dog", b =>
                 {
                     b.Navigation("DogOnMeetings");
@@ -481,6 +538,8 @@ namespace Psinder.Repository.Migrations
             modelBuilder.Entity("Psinder.Core.Model.Meeting", b =>
                 {
                     b.Navigation("DogOnMeetings");
+
+                    b.Navigation("UsersOnMeeting");
                 });
 
             modelBuilder.Entity("Psinder.Core.Model.Park", b =>
@@ -493,6 +552,8 @@ namespace Psinder.Repository.Migrations
                     b.Navigation("Dogs");
 
                     b.Navigation("Meetings");
+
+                    b.Navigation("UsersOnMeeting");
                 });
 #pragma warning restore 612, 618
         }

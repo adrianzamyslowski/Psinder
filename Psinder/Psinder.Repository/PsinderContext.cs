@@ -22,6 +22,7 @@ namespace Psinder.Repository
         public DbSet<Park> Parks => Set<Park>();
         public DbSet<DogOnMeeting> DogOnMeeting => Set<DogOnMeeting>();
         public DbSet<Meeting> Meetings => Set<Meeting>();
+        public DbSet<UserOnMeeting> UserOnMeetings => Set<UserOnMeeting>();
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -45,6 +46,16 @@ namespace Psinder.Repository
             modelBuilder.Entity<DogOnMeeting>()
                 .HasOne(dom => dom.Meeting)
                 .WithMany(m => m.DogOnMeetings)
+                .OnDelete(DeleteBehavior.ClientNoAction);
+
+            modelBuilder.Entity<UserOnMeeting>()
+               .HasOne(uom => uom.User)
+               .WithMany(u => u.UsersOnMeeting)
+               .OnDelete(DeleteBehavior.ClientNoAction);
+
+            modelBuilder.Entity<UserOnMeeting>()
+                .HasOne(uom => uom.Meeting)
+                .WithMany(m => m.UsersOnMeeting)
                 .OnDelete(DeleteBehavior.ClientNoAction);
         }
     }

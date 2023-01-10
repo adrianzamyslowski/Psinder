@@ -13,5 +13,6 @@ namespace Psinder.Core.Model
         public DateTime DateOfBirth { get; set; }
         public List<Dog> Dogs { get; set; } = new();
         public List<Meeting> Meetings { get; set; } = new();
+        public List<UserOnMeeting> UsersOnMeeting { get; set; } = new();
     }
 }

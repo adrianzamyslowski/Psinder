@@ -10,6 +10,7 @@ namespace Psinder.Core.Model
     public class DogOnMeeting
     {
         public int Id { get; set; }
+        public string DogOwnerId { get; set; }
 
         [ForeignKey(nameof(Dog))]
         public int DogId { get; set; }
@@ -18,5 +19,6 @@ namespace Psinder.Core.Model
         [ForeignKey(nameof(Meeting))]
         public int MeetingId { get; set; }
         public Meeting Meeting { get; set; }
+
     }
 }
