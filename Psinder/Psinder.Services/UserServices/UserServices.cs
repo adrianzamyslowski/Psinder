@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Identity.Client;
 using Psinder.Core.Interfaces;
 using Psinder.Core.Model;
@@ -31,7 +32,7 @@ namespace Psinder.Services.UserServices
         {
             var result = new Result();
 
-            result.IsSucceed= true;
+            result.IsSucceed = true;
             result.StatusCode = HttpStatusCode.OK;
 
             var identityResult = await _userManager.CreateAsync(newUser, password);
@@ -53,11 +54,16 @@ namespace Psinder.Services.UserServices
             return result;
         }
 
-        public async Task DeleteAsync(ClaimsPrincipal user)
+        public async Task DeleteAsync(ClaimsPrincipal user, string passwordConfirm)
         {
-            var result = await GetAsync(user);
+            var userDelete = await GetAsync(user);
 
-            await _userRepositor.Delete(result);
+            if (!await _userManager.CheckPasswordAsync(userDelete, passwordConfirm))
+            {
+                throw new Exception(); 
+            }
+
+            await _userRepositor.Delete(userDelete);
         }
 
         public async Task UpdateAsync(User user)

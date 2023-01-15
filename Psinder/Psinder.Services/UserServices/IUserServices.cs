@@ -12,7 +12,7 @@ namespace Psinder.Services.UserServices
     public interface IUserServices
     {
         Task<Result> CreateAsync(User newUser, string password);
-        Task DeleteAsync(ClaimsPrincipal user);
+        Task DeleteAsync(ClaimsPrincipal user, string passwordConfirm);
         Task UpdateAsync(User user);
         Task ChangePasswordAsync(ClaimsPrincipal user, string currentPassword, string newPassword);
         Task<User> GetAsync(string id);
