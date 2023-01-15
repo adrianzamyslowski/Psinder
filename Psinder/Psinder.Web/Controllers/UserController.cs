@@ -12,6 +12,7 @@ using System.Security.Claims;
 
 namespace Psinder.Web.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IUserServices _userServices;
@@ -19,7 +20,10 @@ namespace Psinder.Web.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger<UserController> _logger;
 
-        public UserController(IUserServices userServices, IMapper mapper, SignInManager<User> signInManager, ILogger<UserController> logger)
+        public UserController(IUserServices userServices,
+                              IMapper mapper,
+                              SignInManager<User> signInManager,
+                              ILogger<UserController> logger)
         {
             _userServices = userServices;
             _mapper = mapper;
@@ -36,6 +40,7 @@ namespace Psinder.Web.Controllers
         }
 
         // GET: UserController/Create
+        [AllowAnonymous]
         public async Task<ActionResult> Create()
         {
             await _signInManager.SignOutAsync();
@@ -45,6 +50,7 @@ namespace Psinder.Web.Controllers
         // POST: UserController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<ActionResult> Create(UserCreateModelView userCreate)
         {
             if (!ModelState.IsValid)
