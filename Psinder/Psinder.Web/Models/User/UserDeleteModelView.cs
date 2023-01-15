@@ -1,7 +1,7 @@
 ﻿using Psinder.Core.Model;
 using System.ComponentModel.DataAnnotations;
 
-namespace Psinder.Web.Models
+namespace Psinder.Web.Models.User
 {
     public class UserDeleteModelView
     {
