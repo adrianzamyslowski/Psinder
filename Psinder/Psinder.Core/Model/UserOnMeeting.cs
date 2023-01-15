@@ -15,6 +15,5 @@ namespace Psinder.Core.Model
         [ForeignKey(nameof(Meeting))]
         public int MeetingId { get; set; }
         public Meeting Meeting { get; set; }
-
     }
 }

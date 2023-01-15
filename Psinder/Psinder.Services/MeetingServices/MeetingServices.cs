@@ -70,12 +70,25 @@ namespace Psinder.Services.MeetingServices
 
             meetingToUpdate.StartDate = meeting.StartDate;
             meetingToUpdate.EndDate = meeting.EndDate;
-            meetingToUpdate.DogOnMeetings = meeting.DogOnMeetings;
             meetingToUpdate.Park = meeting.Park;
 
             meetingToUpdate.ParkId = meeting.ParkId;
 
             await _meetingRepository.Update(meetingToUpdate);
+        }
+
+        public async Task AddDogToMeetingAsync(Meeting meeting, int dogId)
+        {
+            //sprawdzenie czy pies należy do usera spotkania
+            //dodać nowy obiekt dogOnMeeting do meetingu (utworzyć i dodać)
+            //update meetingu (przez repository)
+        }
+
+        public async Task RemoveDogFromMeetingAsync(Meeting meeting, int dogId)
+        {
+            //czy taki jest na tym spotkanu
+            //jeśli jest usunąc obiekt dogOnMeeitng z tego spotkania (z bazy danych)
+
         }
     }
 }

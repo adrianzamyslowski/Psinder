@@ -3,11 +3,30 @@ using Microsoft.EntityFrameworkCore;
 using Psinder.Core.Interfaces;
 using Psinder.Repository;
 using Psinder.Repository.Repository;
-using Psinder.Web.Data;
+using Psinder.Services.DogServices;
+using Psinder.Services.MeetingServices;
+using Psinder.Services.ParkServices;
+using Psinder.Services.UserServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IDogRepository, DogRepository>();
+builder.Services.AddScoped<IParkRepository, ParkRepository>();
+builder.Services.AddScoped<IUserRepositor, UserRepository>();
+builder.Services.AddScoped<IMeetingRepository, MeetingRepository>();
+
+builder.Services.AddScoped<IDogServices, DogServices>();
+builder.Services.AddScoped<IMeetingServices, MeetingServices>();
+builder.Services.AddScoped<IParkServices, ParkServices>();
+builder.Services.AddScoped<IUserServices, UserServices>();
+
+
+
 var connectionString = builder.Configuration.GetConnectionString("PiesDatabase") ?? throw new InvalidOperationException("Connection string 'connectionString' not found.");
 builder.Services.AddDbContext<PsinderContext>(options =>
     options.UseSqlServer(connectionString));
@@ -18,13 +37,6 @@ builder.Services.AddDefaultIdentity<IdentityUser>(
         )
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<PsinderContext>();
-
-builder.Services.AddControllersWithViews();
-
-builder.Services.AddTransient<IDogRepository, DogRepository>();
-builder.Services.AddTransient<IParkRepository, ParkRepository>();
-builder.Services.AddTransient<IUserRepositor, UserRepository>();
-builder.Services.AddTransient<IMeetingRepository, MeetingRepository>();
 
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -47,7 +59,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
