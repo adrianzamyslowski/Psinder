@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Psinder.Core\Psinder.Core.csproj" />
     <ProjectReference Include="..\Psinder.Repository\Psinder.Repository.csproj" />
     <ProjectReference Include="..\Psinder.Services\Psinder.Services.csproj" />
   </ItemGroup>

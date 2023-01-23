@@ -13,14 +13,17 @@ namespace Psinder.Services.MeetingServices
         private readonly IParkRepository _parkRepository;
         private readonly IMeetingRepository _meetingRepository;
         private readonly IDogRepository _dogRepository;
-        private readonly IUserRepositor _userRepositor;
+        private readonly IUserRepository _userRepository;
 
-        public MeetingServices(IParkRepository parkRepository, IMeetingRepository meetingRepository, IDogRepository dogRepository, IUserRepositor userRepositor)
+        public MeetingServices(IParkRepository parkRepository,
+                               IMeetingRepository meetingRepository,
+                               IDogRepository dogRepository,
+                               IUserRepository userRepository)
         {
             _parkRepository = parkRepository;
             _meetingRepository = meetingRepository;
             _dogRepository = dogRepository;
-            _userRepositor = userRepositor;
+            _userRepository = userRepository;
         }
 
         public async Task AddAsync(Meeting meeting)
@@ -34,7 +37,7 @@ namespace Psinder.Services.MeetingServices
                 throw new InvalidOperationException();
             }
 
-            if (await _userRepositor.Get(userId) == null)
+            if (await _userRepository.Get(userId) == null)
             {
                 //dodać - bład brak użytownika
                 throw new InvalidOperationException();

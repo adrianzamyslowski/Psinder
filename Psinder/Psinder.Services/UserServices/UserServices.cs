@@ -18,12 +18,12 @@ namespace Psinder.Services.UserServices
 {
     public class UserServices : IUserServices
     {
-        private readonly IUserRepositor _userRepositor;
+        private readonly IUserRepository _userRepository;
         private readonly UserManager<User> _userManager;
 
-        public UserServices(IUserRepositor userRepositor, UserManager<User> userManager)
+        public UserServices(IUserRepository userRepository, UserManager<User> userManager)
         {
-            _userRepositor = userRepositor;
+            _userRepository = userRepository;
             _userManager = userManager;
         }
 
@@ -63,7 +63,7 @@ namespace Psinder.Services.UserServices
                 throw new Exception(); 
             }
 
-            await _userRepositor.Delete(userDelete);
+            await _userRepository.Delete(userDelete);
         }
 
         public async Task UpdateAsync(User user)
@@ -81,12 +81,12 @@ namespace Psinder.Services.UserServices
 
         public async Task<User> GetAsync(string id)
         {
-            return await _userRepositor.Get(id);
+            return await _userRepository.Get(id);
         }
 
         public async Task<User> GetAsync(ClaimsPrincipal user)
         {
-            return await _userRepositor.Get(user.FindFirst(ClaimTypes.NameIdentifier).Value);
+            return await _userRepository.Get(user.FindFirst(ClaimTypes.NameIdentifier).Value);
         }
     }
 }

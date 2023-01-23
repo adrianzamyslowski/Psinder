@@ -1,7 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Psinder.Core.Model.Enums;
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@using Psinder.Core.Model;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))

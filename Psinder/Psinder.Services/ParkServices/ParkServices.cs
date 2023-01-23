@@ -1,4 +1,5 @@
-﻿using Psinder.Core.Model;
+﻿using Psinder.Core.Interfaces;
+using Psinder.Core.Model;
 using Psinder.Repository.Repository;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ namespace Psinder.Services.ParkServices
 { 
     public class ParkServices : IParkServices
     {
-        private readonly ParkRepository _parkRepository;
+        private readonly IParkRepository _parkRepository;
 
-        public ParkServices(ParkRepository parkRepository)
+        public ParkServices(IParkRepository parkRepository)
         {
             _parkRepository = parkRepository;
         }

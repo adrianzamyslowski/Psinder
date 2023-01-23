@@ -10,7 +10,7 @@ using Psinder.Core.Model;
 
 namespace Psinder.Repository.Repository
 {
-    public class UserRepository : IUserRepositor
+    public class UserRepository : IUserRepository
     {
         private readonly PsinderContext _psinderContext;
 

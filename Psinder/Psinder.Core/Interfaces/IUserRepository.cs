@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Psinder.Core.Interfaces
 {
-    public interface IUserRepositor
+    public interface IUserRepository
     {
         Task<List<User>> GetAll();
         Task<List<User>> GetUserByName(string userName);

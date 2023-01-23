@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Psinder.Core.Interfaces;
+using Psinder.Core.Model;
 using Psinder.Repository;
 using Psinder.Repository.Repository;
 using Psinder.Services.DogServices;
@@ -12,18 +13,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<IDogRepository, DogRepository>();
-builder.Services.AddScoped<IParkRepository, ParkRepository>();
-builder.Services.AddScoped<IUserRepositor, UserRepository>();
-builder.Services.AddScoped<IMeetingRepository, MeetingRepository>();
+builder.Services.AddTransient<IDogRepository, DogRepository>();
+builder.Services.AddTransient<IParkRepository, ParkRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IMeetingRepository, MeetingRepository>();
 
-builder.Services.AddScoped<IDogServices, DogServices>();
-builder.Services.AddScoped<IMeetingServices, MeetingServices>();
-builder.Services.AddScoped<IParkServices, ParkServices>();
-builder.Services.AddScoped<IUserServices, UserServices>();
+builder.Services.AddTransient<IUserServices, UserServices>();
+builder.Services.AddTransient<IDogServices, DogServices>();
+builder.Services.AddTransient<IMeetingServices, MeetingServices>();
+builder.Services.AddTransient<IParkServices, ParkServices>();
 
 
 
@@ -32,12 +32,9 @@ builder.Services.AddDbContext<PsinderContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(
-     //   options => options.SignIn.RequireConfirmedAccount = true
-        )
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<PsinderContext>();
+builder.Services.AddIdentity<User, IdentityRole<string>>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<PsinderContext>();
 
+builder.Services.AddRazorPages();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
