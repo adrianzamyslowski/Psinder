@@ -21,7 +21,7 @@ namespace Psinder.Web.Models.User
         [Required]
         [MinLength(8)]
         [DataType(DataType.Password)]
-        [Compare("Passwod", ErrorMessage = "Różne hasło")]
+        [Compare("Password", ErrorMessage = "Różne hasło")]
         public string ConfirmPassword { get; set; }
 
         [Display(Name = "Adres e-mail")]

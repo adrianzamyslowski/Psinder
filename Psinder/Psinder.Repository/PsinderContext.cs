@@ -9,10 +9,11 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Psinder.Core.Model.Enums;
+using Microsoft.AspNetCore.Identity;
 
 namespace Psinder.Repository
 {
-    public class PsinderContext : IdentityDbContext<User>
+    public class PsinderContext : IdentityDbContext<User, IdentityRole<string>, string>
     {
         public PsinderContext() { }
         public PsinderContext(DbContextOptions<PsinderContext> options) : base(options) { }
@@ -57,6 +58,9 @@ namespace Psinder.Repository
                 .HasOne(uom => uom.Meeting)
                 .WithMany(m => m.UsersOnMeeting)
                 .OnDelete(DeleteBehavior.ClientNoAction);
-        }
+
+            modelBuilder.SeedData();
+        }           
     }
 }
+

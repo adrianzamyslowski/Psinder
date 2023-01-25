@@ -44,6 +44,21 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+
+    using (var services = app.Services.CreateScope())
+    {
+        var dbContext = services.ServiceProvider.GetRequiredService<PsinderContext>();
+        try
+        {
+            dbContext.Database.Migrate();
+        }
+        catch
+        {
+            dbContext.Database.CloseConnection();
+            dbContext.Database.EnsureDeleted();
+            dbContext.Database.Migrate();
+        }
+    }
 }
 else
 {

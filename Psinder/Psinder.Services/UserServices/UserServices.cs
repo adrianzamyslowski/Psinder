@@ -19,12 +19,12 @@ namespace Psinder.Services.UserServices
     public class UserServices : IUserServices
     {
         private readonly IUserRepository _userRepository;
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<User> _userManager;     
 
         public UserServices(IUserRepository userRepository, UserManager<User> userManager)
         {
             _userRepository = userRepository;
-            _userManager = userManager;
+            _userManager = userManager;         
         }
 
 
@@ -41,7 +41,7 @@ namespace Psinder.Services.UserServices
                 result.IsSucceed = false;
                 result.Messages.Add(new ErrorMessage("", "Nie udało się utworzyć użytkownia"));
                 result.StatusCode = HttpStatusCode.InternalServerError;
-            }
+            }        
             identityResult = await _userManager.AddToRoleAsync(newUser, UserRoles.RegularUser.ToString());
 
             if (identityResult.Succeeded)

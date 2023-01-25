@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Psinder.Repository.Migrations
 {
     /// <inheritdoc />
@@ -18,7 +20,8 @@ namespace Psinder.Repository.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -127,8 +130,8 @@ namespace Psinder.Repository.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -172,8 +175,8 @@ namespace Psinder.Repository.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -293,6 +296,53 @@ namespace Psinder.Repository.Migrations
                         column: x => x.MeetingId,
                         principalTable: "Meetings",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Discriminator", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "96827cbf-86eb-4f1b-8560-b11b64455570", null, "IdentityRole", "RegularUser", "REGULARUSER" },
+                    { "be236bd2-ca25-48ae-a320-dc7d4ff99fed", null, "IdentityRole", "Moderator", "MODERATOR" },
+                    { "fa57b9a0-1fc5-4261-88e4-96929a293a08", null, "IdentityRole", "Admin", "ADMIN" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "DateOfBirth", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { "31230d16-6f5e-4513-b287-35a630cde420", 0, "f889d7cf-e9c2-4836-bb77-61341e59051e", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "regular@regular.pl", false, false, null, "REGULAR@REGULAR.PL", "REGULAR", "AQAAAAIAAYagAAAAEP0GaQyAJHIeQnI0z8vs+B1msI1Xk53fp+odHc4vDKeCalF7KO+yYl9wj7iIv4NuuA==", null, false, "ff2545e7-afa5-469c-bb9a-ad99258cfef7", false, "regular" },
+                    { "9a18b49c-4d61-4d2b-8c35-ea7c36c21622", 0, "4b047164-33a8-4fab-81ef-faa3201a6379", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "moderator@moderator.pl", false, false, null, "MODERATOR@MODERATOR.PL", "MODERATOR", "AQAAAAIAAYagAAAAEPHl/McMuuO1wry+BEnFKd6ij20q5FW7BFJEQ9nWT79lrHxS3uKqzW3qrD0rOioidg==", null, false, "6a4a1a19-78bb-4782-b240-bc4ae1b1c5e2", false, "moderator" },
+                    { "e8fde6f7-2405-4fd2-bb64-51f51945e4c3", 0, "001d49e1-e3e8-4cd9-ae8a-04d435170246", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@admin.pl", false, false, null, "ADMIN@ADMIN.PL", "ADMIN", "AQAAAAIAAYagAAAAENSudBPbBC4T/qsouskR69oC6zqPqOnXmF6dnlu03XunqEExphWzxvD6oN8MCqUrDg==", null, false, "d7eb2ff4-1a77-42ed-baf8-4680f06605d6", false, "admin" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "DogBreeds",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Owczarek" },
+                    { 2, "Jamnik" },
+                    { 3, "Mops" },
+                    { 4, "Samoyed" },
+                    { 5, "Jack Russel Terrier" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Parks",
+                columns: new[] { "Id", "City", "Country", "NamePark", "PostalCode", "Street" },
+                values: new object[] { 1, "Kraków", "Polska", "Psi wybieg", "00-000", "Krakowska 2" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[,]
+                {
+                    { "96827cbf-86eb-4f1b-8560-b11b64455570", "31230d16-6f5e-4513-b287-35a630cde420" },
+                    { "be236bd2-ca25-48ae-a320-dc7d4ff99fed", "9a18b49c-4d61-4d2b-8c35-ea7c36c21622" },
+                    { "fa57b9a0-1fc5-4261-88e4-96929a293a08", "e8fde6f7-2405-4fd2-bb64-51f51945e4c3" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -22,13 +22,17 @@ namespace Psinder.Repository.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<string>", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -47,6 +51,10 @@ namespace Psinder.Repository.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole<string>");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -102,12 +110,10 @@ namespace Psinder.Repository.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -136,6 +142,23 @@ namespace Psinder.Repository.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "e8fde6f7-2405-4fd2-bb64-51f51945e4c3",
+                            RoleId = "fa57b9a0-1fc5-4261-88e4-96929a293a08"
+                        },
+                        new
+                        {
+                            UserId = "9a18b49c-4d61-4d2b-8c35-ea7c36c21622",
+                            RoleId = "be236bd2-ca25-48ae-a320-dc7d4ff99fed"
+                        },
+                        new
+                        {
+                            UserId = "31230d16-6f5e-4513-b287-35a630cde420",
+                            RoleId = "96827cbf-86eb-4f1b-8560-b11b64455570"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -144,12 +167,10 @@ namespace Psinder.Repository.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -208,6 +229,33 @@ namespace Psinder.Repository.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DogBreeds");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Owczarek"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Jamnik"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Mops"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Samoyed"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Jack Russel Terrier"
+                        });
                 });
 
             modelBuilder.Entity("Psinder.Core.Model.DogOnMeeting", b =>
@@ -298,6 +346,17 @@ namespace Psinder.Repository.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Parks");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            City = "Kraków",
+                            Country = "Polska",
+                            NamePark = "Psi wybieg",
+                            PostalCode = "00-000",
+                            Street = "Krakowska 2"
+                        });
                 });
 
             modelBuilder.Entity("Psinder.Core.Model.User", b =>
@@ -366,6 +425,59 @@ namespace Psinder.Repository.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "e8fde6f7-2405-4fd2-bb64-51f51945e4c3",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "001d49e1-e3e8-4cd9-ae8a-04d435170246",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "admin@admin.pl",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@ADMIN.PL",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAIAAYagAAAAENSudBPbBC4T/qsouskR69oC6zqPqOnXmF6dnlu03XunqEExphWzxvD6oN8MCqUrDg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "d7eb2ff4-1a77-42ed-baf8-4680f06605d6",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        },
+                        new
+                        {
+                            Id = "9a18b49c-4d61-4d2b-8c35-ea7c36c21622",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "4b047164-33a8-4fab-81ef-faa3201a6379",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "moderator@moderator.pl",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "MODERATOR@MODERATOR.PL",
+                            NormalizedUserName = "MODERATOR",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPHl/McMuuO1wry+BEnFKd6ij20q5FW7BFJEQ9nWT79lrHxS3uKqzW3qrD0rOioidg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "6a4a1a19-78bb-4782-b240-bc4ae1b1c5e2",
+                            TwoFactorEnabled = false,
+                            UserName = "moderator"
+                        },
+                        new
+                        {
+                            Id = "31230d16-6f5e-4513-b287-35a630cde420",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "f889d7cf-e9c2-4836-bb77-61341e59051e",
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "regular@regular.pl",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "REGULAR@REGULAR.PL",
+                            NormalizedUserName = "REGULAR",
+                            PasswordHash = "AQAAAAIAAYagAAAAEP0GaQyAJHIeQnI0z8vs+B1msI1Xk53fp+odHc4vDKeCalF7KO+yYl9wj7iIv4NuuA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "ff2545e7-afa5-469c-bb9a-ad99258cfef7",
+                            TwoFactorEnabled = false,
+                            UserName = "regular"
+                        });
                 });
 
             modelBuilder.Entity("Psinder.Core.Model.UserOnMeeting", b =>
@@ -398,9 +510,36 @@ namespace Psinder.Repository.Migrations
                     b.ToTable("UserOnMeetings");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole<string>");
+
+                    b.HasDiscriminator().HasValue("IdentityRole");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "fa57b9a0-1fc5-4261-88e4-96929a293a08",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "be236bd2-ca25-48ae-a320-dc7d4ff99fed",
+                            Name = "Moderator",
+                            NormalizedName = "MODERATOR"
+                        },
+                        new
+                        {
+                            Id = "96827cbf-86eb-4f1b-8560-b11b64455570",
+                            Name = "RegularUser",
+                            NormalizedName = "REGULARUSER"
+                        });
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<string>", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -427,7 +566,7 @@ namespace Psinder.Repository.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<string>", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
