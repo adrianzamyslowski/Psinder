@@ -4,11 +4,9 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Szczegóły konta</h1>
 
 <div>
-    <h4>UserDetailsModelView</h4>
-    <hr />
     <dl class="row">
         <dt class="col-sm-2">
             <label asp-for="UserName"></label>
@@ -31,6 +29,7 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit">Edytuj</a>|
+    <a asp-action="EditPassword">Zmiana hasła</a>|
+    <a asp-action="Delete">Usuń konto</a>|
 </div>

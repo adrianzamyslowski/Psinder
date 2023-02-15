@@ -1,15 +1,13 @@
-﻿@model Psinder.Web.Models.User.UserDeleteModelView
+﻿    @model Psinder.Web.Models.User.UserDeleteModelView
 
 @{
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1>Usunięcie użytkownika</h1>
 
-<h3>Czy napewno chcesz usunąć </h3>
 <div>
-    <h4>PlayerDeleteModelView</h4>
-    <hr />
+       <hr />
     <dl class="row">
         <dt class="col-sm-2">
             <label asp-for="UserName"></label>
@@ -32,16 +30,23 @@
     </dl>
 
     <form asp-action="Delete">
+        <input asp-for="UserName" class="form-control" hidden/>
+        <input asp-for="Email" class="form-control" hidden/>
         <div class="form-group">
             <label asp-for="PasswordConfirm"></label>
             <input asp-for="PasswordConfirm" class="form-control" />
             <span asp-validation-for="PasswordConfirm" class="text-danger"></span>
         </div>
-        <div class="btn-group btn-block">
-            <input type="submit" value="Usunięcie konta"/>
-            <a type="button" class="gbtn gbtn-accept" asp-action="Edit">Anuluj</a>
+        <div>
+            <input class="btn btn-danger" type="submit" value="Usunięcie konta" />
         </div>
-
-        <a asp-action="Index">Back to List</a>
     </form>
+        <div>
+            <div>
+                <a asp-action="Details">Anuluj</a>
+            </div>
+            <div>
+                <a asp-action="Index" asp-controller="Home">Ekran głowny</a>
+            </div>
+        </div>  
 </div>

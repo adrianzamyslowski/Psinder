@@ -1,5 +1,6 @@
 ﻿using Psinder.Core.Model;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Psinder.Web.Models.User
 {
@@ -22,6 +23,7 @@ namespace Psinder.Web.Models.User
         [MinLength(8)]
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Różne hasło")]
+
         public string ConfirmPassword { get; set; }
 
         [Display(Name = "Adres e-mail")]

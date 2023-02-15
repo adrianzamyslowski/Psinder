@@ -17,5 +17,6 @@ namespace Psinder.Services.UserServices
         Task ChangePasswordAsync(ClaimsPrincipal user, string currentPassword, string newPassword);
         Task<User> GetAsync(string id);
         Task<User> GetAsync(ClaimsPrincipal user);
+        Task<List<User>> GetUserByNameAsync(string userName);
     }
 }

@@ -9,6 +9,7 @@ using Psinder.Services.UserServices;
 using Psinder.Web.Models.User;
 using System.Numerics;
 using System.Security.Claims;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Psinder.Web.Controllers
 {
@@ -61,6 +62,28 @@ namespace Psinder.Web.Controllers
 
             var user = _mapper.Map<User>(userCreate);
 
+            var checkListUser = await _userServices.GetUserByNameAsync(userCreate.UserName);
+            foreach (var checkUser in checkListUser)
+            {
+                if (userCreate.UserName == checkUser.UserName)
+                {
+                    ModelState.AddModelError("", $"Już istnieje użytkowik o nazwie {userCreate.UserName}");
+                    return View(userCreate);
+                }
+            }
+
+            if (userCreate.DateOfBirth > DateTime.Now)
+            {
+                ModelState.AddModelError("", "Nie moższ podać daty przyszłej");
+                return View(userCreate);
+            }
+
+            if (userCreate.DateOfBirth.Year < 1900)
+            {
+                ModelState.AddModelError("", $"Masz {DateTime.Now.Year - userCreate.DateOfBirth.Year} lat?");
+                return View(userCreate);
+            }
+
             try
             {
                 await _userServices.CreateAsync(user, userCreate.Password);
@@ -86,6 +109,11 @@ namespace Psinder.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(UserLogInModelView userLogIn)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(userLogIn);
+            }
+
             var result = await _signInManager.PasswordSignInAsync(userLogIn.UserName, userLogIn.Password, false, lockoutOnFailure: false);
 
             if (result.Succeeded)
@@ -106,6 +134,13 @@ namespace Psinder.Web.Controllers
             return RedirectToAction(nameof(Index), "Home");
         }
 
+        [AllowAnonymous]
+        public async Task<IActionResult> AfterDeleteUser()
+        {
+            await _signInManager.SignOutAsync();
+            return View();
+        }
+
         // GET: UserController/Edit
         public async Task<ActionResult> Edit()
         {
@@ -119,10 +154,6 @@ namespace Psinder.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(UserEditModelView userEdit)
         {
-
-            var originalUser = await _userServices.GetAsync(User);
-            userEdit.UserName = originalUser.UserName;
-
             if (!ModelState.IsValid)
             {
                 _logger.LogInformation($"{userEdit.UserName} nie powiodło się edytowanie informacji o koncie", ModelState);
@@ -131,6 +162,18 @@ namespace Psinder.Web.Controllers
 
             var user = _mapper.Map<User>(userEdit);
             user.Id = (await _userServices.GetAsync(User)).Id;
+
+            if (userEdit.DateOfBirth > DateTime.Now)
+            {
+                ModelState.AddModelError("", "Nie moższ podać daty przyszłej");
+                return View(userEdit);
+            }
+
+            if (userEdit.DateOfBirth.Year < 1900)
+            {
+                ModelState.AddModelError("", $"Masz {DateTime.Now.Year - userEdit.DateOfBirth.Year} lat?");
+                return View(userEdit);
+            }
 
             try
             {
@@ -158,10 +201,7 @@ namespace Psinder.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditPassword(PasswordChangeModelView passwordChange)
         {
-            var originalUser = await _userServices.GetAsync(User);
-            passwordChange.UserName = originalUser.UserName;
-
-
+            
             if (!ModelState.IsValid)
             {
                 _logger.LogInformation($"{passwordChange.UserName} zmiana hasła nie powiodła się", ModelState);
@@ -172,7 +212,7 @@ namespace Psinder.Web.Controllers
             {
                 await _userServices.ChangePasswordAsync(User, passwordChange.CurrentPassword, passwordChange.NewPassword);
                 _logger.LogInformation($"{passwordChange.UserName} zmiana hasła powiodła się");
-                return RedirectToAction(nameof(Edit));
+                return RedirectToAction(nameof(Details));
             }
             catch (Exception exception)
             {
@@ -209,7 +249,8 @@ namespace Psinder.Web.Controllers
             {
                 await _userServices.DeleteAsync(User, passwordConfirm);
                 _logger.LogInformation($"{userDelete.UserName} deleted successful");
-                return RedirectToAction(nameof(Logout));
+                await _signInManager.SignOutAsync();
+                return RedirectToAction(nameof(AfterDeleteUser));
             }
             catch (Exception exception)
             {

@@ -26,17 +26,19 @@
                     @UserManager.GetUserName(User)
                 </a>
             }
-            <a id="logout" class="gbtn gbtn-danger" asp-controller="User" asp-action="Logout">Logout</a>
+            </li>
+            <li>
+            <a id="logout" class="btn btn-danger" asp-controller="User" asp-action="Logout">Logout</a>
         </li>
 
     }
     else
     {
-        <li class="nav-item ">
-            <a class="nav-link text-dark" id="login" asp-controller="User" asp-action="Login">Logowanie</a>
+        <li class="nav-item">
+            <a class="btn btn-primary" id="login" asp-controller="User" asp-action="Login">Logowanie</a>
         </li>
-        <li class="nav-item ">
-            <a class="nav-link text-dark" id="register" asp-controller="User" asp-action="Create">Rejestracja</a>
+        <li class="nav-item">
+            <a class="btn btn-primary" id="register" asp-controller="User" asp-action="Create">Rejestracja</a>
         </li>
     }
 </ul>

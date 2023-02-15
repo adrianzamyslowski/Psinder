@@ -1,0 +1,16 @@
+﻿.menu-header {
+    font-size: 25px;
+    font-style: italic;
+}
+
+body {
+    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 26%, rgba(213,213,213,1) 62%, rgba(181,181,181,1) 87%, rgba(171,171,171,1) 100%);
+}
+
+.form-group{
+    margin-block-end: 10px;
+}
+
+.after-delete {
+    text-align: center
+}

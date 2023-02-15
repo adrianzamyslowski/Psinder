@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Identity.Client;
 using Psinder.Core.Interfaces;
 using Psinder.Core.Model;
@@ -19,12 +20,12 @@ namespace Psinder.Services.UserServices
     public class UserServices : IUserServices
     {
         private readonly IUserRepository _userRepository;
-        private readonly UserManager<User> _userManager;     
+        private readonly UserManager<User> _userManager;
 
         public UserServices(IUserRepository userRepository, UserManager<User> userManager)
         {
             _userRepository = userRepository;
-            _userManager = userManager;         
+            _userManager = userManager;
         }
 
 
@@ -41,7 +42,7 @@ namespace Psinder.Services.UserServices
                 result.IsSucceed = false;
                 result.Messages.Add(new ErrorMessage("", "Nie udało się utworzyć użytkownia"));
                 result.StatusCode = HttpStatusCode.InternalServerError;
-            }        
+            }
             identityResult = await _userManager.AddToRoleAsync(newUser, UserRoles.RegularUser.ToString());
 
             if (identityResult.Succeeded)
@@ -60,7 +61,7 @@ namespace Psinder.Services.UserServices
 
             if (!await _userManager.CheckPasswordAsync(userDelete, passwordConfirm))
             {
-                throw new Exception(); 
+                throw new Exception();
             }
 
             await _userRepository.Delete(userDelete);
@@ -71,6 +72,10 @@ namespace Psinder.Services.UserServices
             var userToUpade = await GetAsync(user.Id);
             userToUpade.Email = user.Email;
             userToUpade.DateOfBirth = user.DateOfBirth;
+
+            userToUpade.NormalizedEmail = userToUpade.Email;
+
+            await _userRepository.Update(userToUpade);
         }
 
         public async Task ChangePasswordAsync(ClaimsPrincipal user, string currentPassword, string newPassword)
@@ -87,6 +92,11 @@ namespace Psinder.Services.UserServices
         public async Task<User> GetAsync(ClaimsPrincipal user)
         {
             return await _userRepository.Get(user.FindFirst(ClaimTypes.NameIdentifier).Value);
+        }
+
+        public async Task<List<User>> GetUserByNameAsync(string userName)
+        {
+            return await _userRepository.GetUserByName(userName);
         }
     }
 }
