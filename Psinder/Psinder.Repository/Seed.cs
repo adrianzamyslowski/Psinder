@@ -63,7 +63,7 @@ namespace Psinder.Repository
                 new DogBreeds { Id = 3, Name = "Mops" },
                 new DogBreeds { Id = 4, Name = "Samoyed" },
                 new DogBreeds { Id = 5, Name = "Jack Russel Terrier" }
-                );
+                );        
         }
     }
 }

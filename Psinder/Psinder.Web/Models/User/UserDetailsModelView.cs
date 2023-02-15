@@ -16,6 +16,6 @@ namespace Psinder.Web.Models.User
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
 
-        public List<Dog> Dogs = new();
+        public List<Core.Model.Dog> Dogs = new();
     }
 }

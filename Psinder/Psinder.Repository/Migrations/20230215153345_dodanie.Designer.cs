@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Psinder.Repository;
 
@@ -11,9 +12,11 @@ using Psinder.Repository;
 namespace Psinder.Repository.Migrations
 {
     [DbContext(typeof(PsinderContext))]
-    partial class PsinderContextModelSnapshot : ModelSnapshot
+    [Migration("20230215153345_dodanie")]
+    partial class dodanie
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -146,18 +149,18 @@ namespace Psinder.Repository.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "b5f397da-41e4-4dc8-9fd3-c67382491d07",
-                            RoleId = "21d1a525-9b2b-4a4d-bea9-c61881016ef0"
+                            UserId = "f91f31d2-10bf-4fea-9a21-52931ada3480",
+                            RoleId = "024f11cf-e2b2-4677-a5d7-3ad99d645eb6"
                         },
                         new
                         {
-                            UserId = "e8a1fed1-661d-49b5-ae53-13b054d09584",
-                            RoleId = "ce4035a2-fe09-4919-b93c-161361374788"
+                            UserId = "a4103b8b-96cf-4e4a-b515-c1888e9b1f66",
+                            RoleId = "d070a5c2-addd-4128-b645-6768de3edc6b"
                         },
                         new
                         {
-                            UserId = "af9e1e58-41b7-47bc-90d2-249fab81b347",
-                            RoleId = "bd9049ac-2fa7-4e0a-b672-86ba5bc5e677"
+                            UserId = "5af782bb-bcbf-4dc4-84cb-ef12a0374ba4",
+                            RoleId = "b3a2eef0-502d-4429-a20a-5f32b276074b"
                         });
                 });
 
@@ -194,7 +197,7 @@ namespace Psinder.Repository.Migrations
                     b.Property<int>("DogBreedsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Gender")
+                    b.Property<int>("GenderId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -208,6 +211,8 @@ namespace Psinder.Repository.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DogBreedsId");
+
+                    b.HasIndex("GenderId");
 
                     b.HasIndex("UserId");
 
@@ -283,6 +288,35 @@ namespace Psinder.Repository.Migrations
                     b.HasIndex("MeetingId");
 
                     b.ToTable("DogOnMeeting");
+                });
+
+            modelBuilder.Entity("Psinder.Core.Model.Gender", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("GenderDog")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Genders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            GenderDog = "Pies"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            GenderDog = "Suczka"
+                        });
                 });
 
             modelBuilder.Entity("Psinder.Core.Model.Meeting", b =>
@@ -429,52 +463,52 @@ namespace Psinder.Repository.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b5f397da-41e4-4dc8-9fd3-c67382491d07",
+                            Id = "f91f31d2-10bf-4fea-9a21-52931ada3480",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cbc5c73f-f959-4eef-bebb-5666a84e5df4",
+                            ConcurrencyStamp = "e50529f3-4f39-4bec-a2da-cbfef76d8f4c",
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@admin.pl",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.PL",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMxs9IgWgq2C0YSTlu+4IqSLNJUcB9m6AsE++d6cU+592bAAMyDXb3065SLX+1Zj4Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENoY0kM9o3cZoML0Rm+z9Ea7FXQOQOo1Wff8xwPyylTdovWh421iSGcnB2HHfvKqnA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "39f80e21-d3de-4e3c-a549-29a8061477b6",
+                            SecurityStamp = "4410807a-459d-46b0-a999-015702a80602",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         },
                         new
                         {
-                            Id = "e8a1fed1-661d-49b5-ae53-13b054d09584",
+                            Id = "a4103b8b-96cf-4e4a-b515-c1888e9b1f66",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "33bc3729-9a72-4d8b-af4b-16ff11703708",
+                            ConcurrencyStamp = "7b5bfd5a-63b9-4248-8a3e-e7d30f12893f",
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "moderator@moderator.pl",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "MODERATOR@MODERATOR.PL",
                             NormalizedUserName = "MODERATOR",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGo+uZdgRGz1LVlWUROrub0t43MK/XTbDKMXAJIvfEi4ErGjE2hvaQtbRHTiWkV6JQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAED2w5NOguUjo3/Iaj1fgIytj21ipfPlIglKbInkdACNzwcGKlpl+BEX0AfIkjSolIg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "69d732a4-e165-4eb2-abf6-792272c22b4c",
+                            SecurityStamp = "941dc97c-a673-43e9-aa73-995ab36060e7",
                             TwoFactorEnabled = false,
                             UserName = "moderator"
                         },
                         new
                         {
-                            Id = "af9e1e58-41b7-47bc-90d2-249fab81b347",
+                            Id = "5af782bb-bcbf-4dc4-84cb-ef12a0374ba4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "08eb996f-8caa-47f2-a21f-65c7d0e3be18",
+                            ConcurrencyStamp = "64a232e2-a6ba-4264-99f8-6a8674903c34",
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "regular@regular.pl",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "REGULAR@REGULAR.PL",
                             NormalizedUserName = "REGULAR",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOYNjvwVfCbXKihuMzHhThnt1fe4UEjmGmaDTYDFOsEukiadPhPtxRUmlcF4DBCUBg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDimiubZhqVBuC65JcYIJ9cxMmb5cZkKU2RJww1QJKmxP1nM/aLPQTMdO29/KZUPBw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7d1941c8-557f-4c4e-99da-77e4b0444066",
+                            SecurityStamp = "f6c7e292-6284-459c-8bb4-e5c51d19e075",
                             TwoFactorEnabled = false,
                             UserName = "regular"
                         });
@@ -519,19 +553,19 @@ namespace Psinder.Repository.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "21d1a525-9b2b-4a4d-bea9-c61881016ef0",
+                            Id = "024f11cf-e2b2-4677-a5d7-3ad99d645eb6",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "ce4035a2-fe09-4919-b93c-161361374788",
+                            Id = "d070a5c2-addd-4128-b645-6768de3edc6b",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         },
                         new
                         {
-                            Id = "bd9049ac-2fa7-4e0a-b672-86ba5bc5e677",
+                            Id = "b3a2eef0-502d-4429-a20a-5f32b276074b",
                             Name = "RegularUser",
                             NormalizedName = "REGULARUSER"
                         });
@@ -596,6 +630,12 @@ namespace Psinder.Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Psinder.Core.Model.Gender", "Gender")
+                        .WithMany("Dog")
+                        .HasForeignKey("GenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Psinder.Core.Model.User", "User")
                         .WithMany("Dogs")
                         .HasForeignKey("UserId")
@@ -603,6 +643,8 @@ namespace Psinder.Repository.Migrations
                         .IsRequired();
 
                     b.Navigation("DogBreeds");
+
+                    b.Navigation("Gender");
 
                     b.Navigation("User");
                 });
@@ -670,6 +712,11 @@ namespace Psinder.Repository.Migrations
                 });
 
             modelBuilder.Entity("Psinder.Core.Model.DogBreeds", b =>
+                {
+                    b.Navigation("Dog");
+                });
+
+            modelBuilder.Entity("Psinder.Core.Model.Gender", b =>
                 {
                     b.Navigation("Dog");
                 });

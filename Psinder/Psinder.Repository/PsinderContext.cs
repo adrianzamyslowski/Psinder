@@ -24,7 +24,7 @@ namespace Psinder.Repository
         public DbSet<DogOnMeeting> DogOnMeeting => Set<DogOnMeeting>();
         public DbSet<Meeting> Meetings => Set<Meeting>();
         public DbSet<UserOnMeeting> UserOnMeetings => Set<UserOnMeeting>();
-
+        public DbSet<DogBreeds> DogBreeds => Set<DogBreeds>();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
