@@ -156,7 +156,7 @@ namespace Psinder.Web.Controllers
             {
                 await _dogServices.DeleteAsync(dogDelete.Id);
                 _logger.LogInformation($"{dogDelete.Name} deleted successful");
-                return RedirectToAction(nameof(DetailsAllDogs));
+                return RedirectToAction("Details", "User");
             }
             catch (Exception exception)
             {

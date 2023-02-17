@@ -45,6 +45,9 @@ body {
 }
 
 .list-group-item {    
-    background-color: initial;
-    
+    background-color: initial;    
+}
+
+.user-info{
+    margin-block-start: 75px;
 }

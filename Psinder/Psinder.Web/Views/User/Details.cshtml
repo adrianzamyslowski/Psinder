@@ -1,41 +1,99 @@
-﻿@model Psinder.Web.Models.User.UserDetailsModelView
+﻿@using Psinder.Core.Model.Enums;
+@model Psinder.Web.Models.User.UserDetailsModelView
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Szczegóły konta</h1>
+<h1 class="text-center">Szczegóły konta</h1>
 
-<div>
-    <dl class="row">
-        <dt class="col-sm-2">
-            <label asp-for="UserName"></label>
-        </dt>
-        <dd class="col-sm-10">
-            @Model.UserName
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DateOfBirth)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DateOfBirth)
-        </dd>
-    </dl>
-    <div>
-        <a class="btn btn-success" asp-controller="Dog" asp-action="Create">Dodaj zwierzaka</a>
 
-        <a class="btn btn-success" asp-controller="Dog" asp-action="DetailsAllDogs">Lista moich zwierzaków</a>
+
+
+<div class="row">
+    <div class="col-6 user-info">
+        <div>
+            <dl class="row">
+                <dt class="col-sm-4">
+                    <label asp-for="UserName"></label>
+                </dt>
+                <dd class="col-sm-6">
+                    @Model.UserName
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.DateOfBirth)
+                </dt>
+                <dd class="col-sm-6">
+                    @Html.DisplayFor(model => model.DateOfBirth)
+                </dd>
+            </dl>
+            <div>
+                <a class="btn btn-success" asp-controller="Dog" asp-action="Create">Dodaj zwierzaka</a>
+
+                <a class="btn btn-success" asp-controller="Dog" asp-action="DetailsAllDogs">Lista moich zwierzaków</a>
+            </div>
+        </div>
+        <div>
+            <a asp-action="Edit">Edytuj</a>|
+            <a asp-action="EditPassword">Zmiana hasła</a>|
+            <a asp-action="Delete">Usuń konto</a>|
+        </div>
+
+
     </div>
+
+    <div class="col-6">
+        <div class="row">
+
+            @{
+                if (Model.Dogs.Count() > 0)
+                {
+                    <div class="col-md-12 list-group">
+                        <div class="list-group-item column-header">Twoje zwierzaki</div>
+                        @{
+                            @foreach (var dog in Model.Dogs)
+                            {
+                                var gender = dog.Gender == Gender.Male ? "male.jpg" : "female.jpg";
+
+                                <a class="list-group-item" href="@Url.Action("Details", "Dog", new {id = dog.Id})">
+                                    <div class="row title">
+                                        <div class="col-md-8"><em>@dog.Name  </em><span><img src="~/images/@gender" style="height:35px; width: auto" /></span></div>
+                                        <div class="col-md-4 birthday">@dog.DateOfBirth.Date.ToString("d") <span><img src="~/images/cake3.png" class="static-image-not-dragable" alt="cake" style="height:50px; width: auto" /></span></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12"><span class="breeds">Rasa: </span>@dog.DogBreeds</div>
+                                    </div>
+                                </a>
+                            }
+                        }
+                    </div>
+
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-md-12 list-group">
+                            <div class="list-group-item column-header">Brak zwierzaków</div>
+                        </div>
+                    </div>
+                }
+
+            }
+        </div>
+
+    </div>
+
 </div>
-<div>
-    <a asp-action="Edit">Edytuj</a>|
-    <a asp-action="EditPassword">Zmiana hasła</a>|
-    <a asp-action="Delete">Usuń konto</a>|
-</div>
+
+
+
+
+
+
 
