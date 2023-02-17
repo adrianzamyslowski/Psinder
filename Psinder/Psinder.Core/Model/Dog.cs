@@ -14,17 +14,12 @@ namespace Psinder.Core.Model
         public string Name { get; set; }
         public DateTime DateOfBirth { get; set; }
         public Gender Gender { get; set; }
+        public string DogBreeds { get; set; }
 
 
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
         public User User { get; set; }
-
-
-        [ForeignKey(nameof(DogBreeds))]
-        public int DogBreedsId { get; set; }
-        public DogBreeds DogBreeds { get; set; }
-
         public List<DogOnMeeting> DogOnMeetings { get; set; } = new();
     }
 }

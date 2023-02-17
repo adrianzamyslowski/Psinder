@@ -6,6 +6,7 @@ namespace Psinder.Web.Models.Dog
 {
     public class DogDetailsModelView
     {
+        public int Id { get; set; }
         [Display(Name = "Imię zwierzaka")]
         [Required]
         public string Name { get; set; }
@@ -21,6 +22,6 @@ namespace Psinder.Web.Models.Dog
 
         [Display(Name = "Rasa")]
         [Required]
-        public DogBreeds DogBreeds { get; set; }
+        public string DogBreeds { get; set; }
     }
 }

@@ -50,12 +50,11 @@ namespace Psinder.Services.DogServices
             return userToListDog.Dogs;
         }
 
-        public async Task UpdateAsync(int id, Dog dog)
+        public async Task UpdateAsync(Dog dog)
         {
-            var dogToUpdate = await GetAsync(id);
+            var dogToUpdate = await GetAsync(dog.Id);
             dogToUpdate.Name = dog.Name;
-            dogToUpdate.DateOfBirth = dog.DateOfBirth;
-            //zmiana na wyciągniętą rasę z bazy(uniąć błędów z referencjami)
+            dogToUpdate.DateOfBirth = dog.DateOfBirth;         
             dogToUpdate.DogBreeds = dog.DogBreeds;
             dogToUpdate.Gender = dog.Gender;
             

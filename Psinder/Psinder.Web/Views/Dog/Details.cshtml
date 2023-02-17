@@ -1,0 +1,42 @@
+﻿@model Psinder.Web.Models.Dog.DogDetailsModelView
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Szczegóły zwierzaka</h1>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            <label asp-for="Name"></label>
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Name
+        </dd>
+        <dt class="col-sm-2">
+            <label asp-for="DateOfBirth"></label>
+        </dt>
+        <dd class="col-sm-10">
+            @Model.DateOfBirth.Date.ToString("d")
+        </dd>
+        <dt class="col-sm-2">
+            <label asp-for="DogBreeds"></label>
+        </dt>
+        <dd class="col-sm-10">
+            @Model.DogBreeds
+        </dd>
+        <dt class="col-sm-2">
+            <label asp-for="Gender"></label>
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Gender
+        </dd>
+    </dl>    
+</div>
+<div>
+   
+    <a href="@Url.Action("Edit", new {id = Model.Id})">Edytuj</a>|
+    <a href="@Url.Action("Delete", new {id = Model.Id})">Usuń zwierzaka</a>|
+    <a asp-action="DetailsAllDogs">Wszystkie zwierzaki</a>|
+</div>

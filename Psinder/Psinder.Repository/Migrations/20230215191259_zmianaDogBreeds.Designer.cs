@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Psinder.Repository;
 
@@ -11,9 +12,11 @@ using Psinder.Repository;
 namespace Psinder.Repository.Migrations
 {
     [DbContext(typeof(PsinderContext))]
-    partial class PsinderContextModelSnapshot : ModelSnapshot
+    [Migration("20230215191259_zmianaDogBreeds")]
+    partial class zmianaDogBreeds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -146,18 +149,18 @@ namespace Psinder.Repository.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "f931c504-3e37-47cc-8fef-eafc3cea363f",
-                            RoleId = "583a1659-b98b-4297-a0ed-00f1c48c8d59"
+                            UserId = "5d360276-b4a2-458d-86ef-49e6938fc8db",
+                            RoleId = "28be6f96-93ee-4a1c-b16d-fad06f2736c2"
                         },
                         new
                         {
-                            UserId = "080d6805-fd50-4dce-bc26-be8346a9712c",
-                            RoleId = "26bee6ac-09de-4046-a52c-67ba1f44d1f6"
+                            UserId = "70f48c21-a14d-4826-86bf-1663f85d3edd",
+                            RoleId = "a52dab56-d8d7-4ee8-a87a-1707c240130f"
                         },
                         new
                         {
-                            UserId = "844f59c8-8b04-45e4-bc24-3b4fafc57afb",
-                            RoleId = "c1fce7f9-b7bc-4550-bd92-dfa460b50b72"
+                            UserId = "657c207c-8564-4671-94ac-0fc76aa29bd9",
+                            RoleId = "c371524f-afdf-428c-97d9-5c5283d2d9a1"
                         });
                 });
 
@@ -195,6 +198,9 @@ namespace Psinder.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("DogBreedsId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
@@ -207,6 +213,8 @@ namespace Psinder.Repository.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DogBreedsId");
 
                     b.HasIndex("UserId");
 
@@ -428,52 +436,52 @@ namespace Psinder.Repository.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f931c504-3e37-47cc-8fef-eafc3cea363f",
+                            Id = "5d360276-b4a2-458d-86ef-49e6938fc8db",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9a5032c2-00be-463e-86a0-5c7d400e8496",
+                            ConcurrencyStamp = "b40dd549-febf-43ca-9d17-2787d97f04e1",
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@admin.pl",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.PL",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDbmVxzgrnf7a9uVutAer994Q9qn1p4KOTrEW6/osIAJxy8gjvLM3aY9kDGuWEXv4w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEM/eRu3Tt5RYjBKazFbZWJhRMuZEpiUf01aYWkWMIyZlK1WXACcZkaCViqOIaL+8QQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e383f1ee-2c73-40f4-bf62-8be88f154d43",
+                            SecurityStamp = "9322ab59-830b-4d6f-88b0-7f6e3713cd3e",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         },
                         new
                         {
-                            Id = "080d6805-fd50-4dce-bc26-be8346a9712c",
+                            Id = "70f48c21-a14d-4826-86bf-1663f85d3edd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "07784db4-5fd6-4046-bf4c-c2231ccd5696",
+                            ConcurrencyStamp = "c4fae9c4-6ea0-4297-bab2-968b4298bbde",
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "moderator@moderator.pl",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "MODERATOR@MODERATOR.PL",
                             NormalizedUserName = "MODERATOR",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAI6RyhhIi9iwpbzy408CGKXiYlPbFMbaFvi6nanozkM4IFVUXFJSqhaVkhWjSaMiQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELK7XvIuIqo8cNOO2gUNWrkG5mD/Hdb+CuweTTd+Ap+SlFWbmKGlI5x9B9O/18G8aw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9aea18e8-a835-4a82-a42d-c72ce2393cc4",
+                            SecurityStamp = "8db56c2e-9505-4ba3-b6d6-38f487a7e0bd",
                             TwoFactorEnabled = false,
                             UserName = "moderator"
                         },
                         new
                         {
-                            Id = "844f59c8-8b04-45e4-bc24-3b4fafc57afb",
+                            Id = "657c207c-8564-4671-94ac-0fc76aa29bd9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "df1bbf1c-c153-42c8-b29f-2be591688496",
+                            ConcurrencyStamp = "3ecba50e-8cfa-430b-b396-630dc6ff1a5e",
                             DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "regular@regular.pl",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "REGULAR@REGULAR.PL",
                             NormalizedUserName = "REGULAR",
-                            PasswordHash = "AQAAAAIAAYagAAAAEG/aztJQdCNCO7IHkmTQywazqE3caXz5HkE9tFPx/mYd30Wt3FYO9e3upiw7KSIVyA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELdpIdSv6n0CVeaimCPo1qc6NYCuyFEFzw+vsh9iV7Zv6VRtxaW0DTH9aJk/uVAofQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "43e0214b-1740-4d49-94c0-13f8a69d8d03",
+                            SecurityStamp = "bc023890-877d-46ae-b6a3-9d562b6141a2",
                             TwoFactorEnabled = false,
                             UserName = "regular"
                         });
@@ -518,19 +526,19 @@ namespace Psinder.Repository.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "583a1659-b98b-4297-a0ed-00f1c48c8d59",
+                            Id = "28be6f96-93ee-4a1c-b16d-fad06f2736c2",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "26bee6ac-09de-4046-a52c-67ba1f44d1f6",
+                            Id = "a52dab56-d8d7-4ee8-a87a-1707c240130f",
                             Name = "Moderator",
                             NormalizedName = "MODERATOR"
                         },
                         new
                         {
-                            Id = "c1fce7f9-b7bc-4550-bd92-dfa460b50b72",
+                            Id = "c371524f-afdf-428c-97d9-5c5283d2d9a1",
                             Name = "RegularUser",
                             NormalizedName = "REGULARUSER"
                         });
@@ -589,6 +597,10 @@ namespace Psinder.Repository.Migrations
 
             modelBuilder.Entity("Psinder.Core.Model.Dog", b =>
                 {
+                    b.HasOne("Psinder.Core.Model.DogBreeds", null)
+                        .WithMany("Dog")
+                        .HasForeignKey("DogBreedsId");
+
                     b.HasOne("Psinder.Core.Model.User", "User")
                         .WithMany("Dogs")
                         .HasForeignKey("UserId")
@@ -658,6 +670,11 @@ namespace Psinder.Repository.Migrations
             modelBuilder.Entity("Psinder.Core.Model.Dog", b =>
                 {
                     b.Navigation("DogOnMeetings");
+                });
+
+            modelBuilder.Entity("Psinder.Core.Model.DogBreeds", b =>
+                {
+                    b.Navigation("Dog");
                 });
 
             modelBuilder.Entity("Psinder.Core.Model.Meeting", b =>

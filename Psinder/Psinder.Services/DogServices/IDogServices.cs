@@ -13,7 +13,7 @@ namespace Psinder.Services.DogServices
     {
         Task AddAsync(ClaimsPrincipal user, Dog dog);
         Task DeleteAsync(int id);
-        Task UpdateAsync(int id, Dog dog);
+        Task UpdateAsync(Dog dog);
         Task<Dog> GetAsync(int id);
         Task<List<Dog>> GetAsync(string name);
         Task<List<Dog>> GetAllUserDogsAsync(ClaimsPrincipal user);

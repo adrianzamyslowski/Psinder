@@ -1,0 +1,25 @@
+﻿@using Psinder.Core.Model.Enums;
+@using Psinder.Web.Models.Dog;
+@model IEnumerable<DogDetailsModelView>
+
+<div class="row">
+    <div class="col-md-6 list-group">
+        <div class="list-group-item column-header">Twoje zwierzaki</div>
+        @{
+            @foreach (var dog in Model)
+            {
+                var gender = dog.Gender == Gender.Male ? "male.jpg" : "female.jpg";
+
+                <a class="list-group-item" href="@Url.Action("Details", new {id = dog.Id})">
+                    <div class="row title">
+                        <div class="col-md-8"><em>@dog.Name  </em><span><img src="~/images/@gender" style="height:35px; width: auto" /></span></div>
+                        <div class="col-md-4 birthday">@dog.DateOfBirth.Date.ToString("d") <span><img src="~/images/cake3.png" class="static-image-not-dragable" alt="cake" style="height:50px; width: auto" /></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12"><span class="breeds">Rasa: </span>@dog.DogBreeds</div>
+                    </div>
+                </a>
+            }
+        }
+        <a class="btn btn-success" asp-controller="User" asp-action="Details">Wróć</a>
+    </div>

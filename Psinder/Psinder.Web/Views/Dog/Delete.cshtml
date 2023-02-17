@@ -1,0 +1,35 @@
+﻿@model Psinder.Web.Models.Dog.DogDeleteModelView
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Usuń zwierzaka</h1>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            <label asp-for="Name"></label>
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Name
+        </dd>
+        <dt class="col-sm-2">
+            <label asp-for="DateOfBirth"></label>
+        </dt>
+        <dd class="col-sm-10">
+            @Model.DateOfBirth.Date.ToString("d")
+        </dd>       
+    </dl>
+</div>
+<div>  
+    <form asp-action="Delete">
+    <input type="hidden" asp-for="Name"/>
+     <input type="hidden" asp-for="Id" />
+     <input type="hidden" asp-for="DateOfBirth" />
+    <input class="btn btn-danger" type="submit" value="Usunięcie zwierzaka" />
+    </form>
+</div>
+<div>
+    <a href="@Url.Action("Details", new {id = Model.Id})">Wróc</a>
+</div>
