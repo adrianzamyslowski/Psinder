@@ -19,13 +19,13 @@ namespace Psinder.Web.Controllers
         private readonly IDogServices _dogServices;
         private readonly IUserServices _userServices;
         private readonly IMapper _mapper;
-        private readonly ILogger<UserController> _logger;
+        private readonly ILogger<DogController> _logger;
         private readonly PsinderContext _context;
 
         public DogController(IDogServices dogServices,
                              IUserServices userServices,
                              IMapper mapper,
-                             ILogger<UserController> logger,
+                             ILogger<DogController> logger,
                              PsinderContext context)
         {
             _dogServices = dogServices;

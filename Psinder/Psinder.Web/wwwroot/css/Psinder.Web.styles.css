@@ -16,13 +16,6 @@ body {
 }
 
 
-
-
-
-
-
-
-
 .title {
     margin: 15px auto;
 }
@@ -51,3 +44,9 @@ body {
 .user-info{
     margin-block-start: 75px;
 }
+
+.layout-menu {
+    font-size: 22px;
+    border-left: 2px dotted;
+}
+    

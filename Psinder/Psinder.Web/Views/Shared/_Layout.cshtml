@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity;
 @using Psinder.Core.Model;
+@using Psinder.Core.Model.Enums;
 @inject SignInManager<User> SignInManager
 
 <!DOCTYPE html>
@@ -27,15 +28,30 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link menu-header" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link menu-header layout-menu" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>                    
                         
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link menu-header" asp-area="" asp-controller="Dog" asp-action="Create">Dodaj zwierzaka</a>
+                                <a class="nav-link menu-header layout-menu" asp-area="" asp-controller="Dog" asp-action="Create">Dodaj zwierzaka</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link menu-header layout-menu" asp-area="" asp-controller="Park" asp-action="Details">Lista parków</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link menu-header layout-menu" asp-area="" asp-controller="Park" asp-action="inex">Dodaj park</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link menu-header layout-menu" asp-area="" asp-controller="Park" asp-action="inex">Utwórz wydarzenie</a>
                             </li>
                         }
+                        @if (User.IsInRole(UserRoles.Admin.ToString()))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link menu-header disabled layout-menu" asp-area="" asp-controller="Dog" asp-action="Create">Panel administratora</a>
+                            </li>
+                                                 }
                         
                     </ul>
                     <partial name="_LoginPartial" />
