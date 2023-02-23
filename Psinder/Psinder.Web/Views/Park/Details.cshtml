@@ -1,1 +1,28 @@
-﻿
+﻿@using Psinder.Web.Models.Park;
+@model IEnumerable<ParkDetailsModelView>
+
+<div class="col-8 align-content-center">
+    <div class="row align-content-center">
+
+        @{
+            <div class="col-md-12 list-group">
+                <div class="list-group-item column-header">Wybierz Park</div>
+                @{
+                    @foreach (var park in Model)
+                    {
+                        <a class="list-group-item" href="@Url.Action("Create", "Meeting", new {id = park.Id})">
+                            <div class="row title">
+                                <div class="col-md-12 list-name-park">@park.NamePark</div>
+                            </div>
+                            <div>
+                                <div class="col-md-12">@park.Country, @park.PostalCode @park.City, @park.Street</div>
+                            </div>
+
+                        </a>
+                    }
+                }
+            </div>
+        }
+    </div>
+
+</div>

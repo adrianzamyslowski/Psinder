@@ -10,11 +10,11 @@ namespace Psinder.Web.Controllers
     [Authorize]
     public class ParkController : Controller
     {
-        private readonly ParkServices _parkServices;
+        private readonly IParkServices _parkServices;
         private readonly IMapper _mapper;
         private readonly ILogger<ParkController> _logger;
 
-        public ParkController(ParkServices parkServices, IMapper mapper, ILogger<ParkController> logger)
+        public ParkController(IParkServices parkServices, IMapper mapper, ILogger<ParkController> logger)
         {
             _parkServices = parkServices;
             _mapper = mapper;
@@ -25,10 +25,10 @@ namespace Psinder.Web.Controllers
         // GET: ParkController/Details/5
         public async Task<ActionResult> Details()
         {
-            //var park = await _parkServices.GetAllAsync();
-            //var parkDetails = _mapper.Map<ParkDetailsModelView>(park);
+            var park = await _parkServices.GetAllAsync();
+            var parkDetails = _mapper.Map<List<ParkDetailsModelView>>(park).OrderBy(n=>n.NamePark).ToList();
 
-            return View();
+            return View(parkDetails);
         }
 
         //// GET: ParkController/Create

@@ -53,7 +53,13 @@ namespace Psinder.Repository
 
             modelBuilder.Entity<Park>().HasData
                (
-                new Park { Id = 1, NamePark = "Psi wybieg", Street = "Krakowska 2", City = "Kraków", PostalCode = "00-000", Country = "Polska", }
+                new Park { Id = 1, NamePark = "Psi wybieg", Street = "Krakowska 2", City = "Kraków", PostalCode = "00-000", Country = "Polska", },
+                 new Park { Id = 2, NamePark = "Krakowski Park", Street = "Mogilska 2", City = "Kraków", PostalCode = "32-000", Country = "Polska", },
+                  new Park { Id = 3, NamePark = "Lubostroń", Street = "Karlemicka 22", City = "Kraków", PostalCode = "00-000", Country = "Polska", },
+                   new Park { Id = 4, NamePark = "Nowa Huta", Street = "Nowohucka 2", City = "Kraków", PostalCode = "11-544", Country = "Polska", }
+
+
+
                );
 
             modelBuilder.Entity<DogBreeds>().HasData
@@ -63,7 +69,7 @@ namespace Psinder.Repository
                 new DogBreeds { Id = 3, Name = "Mops" },
                 new DogBreeds { Id = 4, Name = "Samoyed" },
                 new DogBreeds { Id = 5, Name = "Jack Russel Terrier" }
-                );        
+                );
         }
     }
 }

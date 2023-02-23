@@ -1,0 +1,54 @@
+﻿@using Psinder.Core.Model;
+@using Psinder.Core.Model.Enums;
+@model Psinder.Web.Models.Meeting.MeetingCreateModelView;
+
+@{
+    ViewData["Title"] = "Dodawanie wydarzenia";
+    //int id = Convert.ToInt32(TempData["id"]);
+    //string name = TempData["name"] as string;
+}
+
+       
+@*<h1>Dodawanie wydarzenia dla miejsca @name</h1>*@
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+    @*        <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfBirth" class="control-label"></label>
+                <input asp-for="DateOfBirth" class="form-control" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label"></label>
+                <select class="form-control" asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()"></select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DogBreeds" class="control-label"></label>
+                <select class="form-control" asp-for="DogBreeds" asp-items="@ViewData["DogBreeds"] as IEnumerable<SelectListItem>"></select>
+                <span asp-validation-for="DogBreeds" class="text-danger"></span>
+
+                
+            </div>*@
+
+           @*     <label asp-for="ParkId" hidden></label>*@
+            <div class="form-group">
+                <input type="submit" value="Utwórz" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Home">Anuluj</a>
+</div>

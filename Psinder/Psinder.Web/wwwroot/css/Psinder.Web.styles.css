@@ -49,4 +49,8 @@ body {
     font-size: 22px;
     border-left: 2px dotted;
 }
-    
+.list-name-park {
+    font-size: 25px;
+    font-style: italic;
+    color: cornflowerblue
+}
