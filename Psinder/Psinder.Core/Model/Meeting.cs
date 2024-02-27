@@ -12,6 +12,8 @@ namespace Psinder.Core.Model
         public int Id { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public bool Availability { get; set; }
+
 
         [ForeignKey(nameof(Park))]
         public int ParkId { get; set; }
